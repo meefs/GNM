@@ -1,4 +1,4 @@
-# GNM Head Model
+# GNM: Generative aNthropometric Model
 
 **GNM** is a state-of-the-art parametric 3D statistical model of the human
 head, learned from a large dataset of 3D scans. It provides fine-grained control
@@ -170,27 +170,6 @@ To experiment with identity and expression sampling and blending, please see
 `gnm/shape/demos/semantic_gnm_demo.ipynb`.
 
 ![sampling](gnm/assets/readme/semantic_gnm_demo.gif)
-
-## Generating a Complete Face
-Combine identity and expression parameters from the samplers.
-
-```python
-# Get a random identity and expression.
-random_identity = id_sampler.randomize_identities(num_samples=1)[0]
-random_expression = expr_sampler.randomize_expressions(num_samples=1)[0]
-
-# Optionally add some head rotation (e.g., slight neck bend).
-rotations = np.zeros((gnm.num_joints, 3))
-# Example: gnm.joint_names to find the index for 'head'.
-head_index = gnm.joint_names.index('head')
-# Random rotations along each axis.
-rotations[head_index] = [-0.2, 0.3, 0.2]
-
-vertices_random = gnm(identity=random_identity, expression=random_expression, rotations=rotations)
-mesh_random = trimesh.Trimesh(vertices=vertices_random, faces=faces)
-# mesh_random.show()
-mesh_random.export("random_face.obj")
-```
 
 ## Model Parameters
 
