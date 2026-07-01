@@ -151,7 +151,7 @@ class GNM(gnm_base.GNMBase):
       model_data: Mapping[str, Any],
   ) -> GNM:
     """Creates a GNM instance from a model data."""
-    instance = cls.__new__(cls)
+    instance = super().__new__(cls)
 
     # Set the data fields.
     for field in dataclasses.fields(cls):
@@ -829,13 +829,9 @@ def _check_batch_dims(
       == translation.shape[:-1]
   ):
     raise ValueError(
-        'Mismatched batch dimensions: (%s,%s,%s,%s).'
-        % (
-            identity.shape[:-1],
-            expression.shape[:-1],
-            rotations.shape[:-2],
-            translation.shape[:-1],
-        )
+        f'Mismatched batch dimensions: ({identity.shape[:-1]},'
+        f'{expression.shape[:-1]},{rotations.shape[:-2]},'
+        f'{translation.shape[:-1]}).'
     )
 
 

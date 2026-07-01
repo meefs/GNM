@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Tests for GNM NumPy implementation."""
+
+# pylint: disable=protected-access
+
 from collections.abc import Sequence
 import copy
 import itertools
@@ -88,6 +92,7 @@ def get_pose_correctives_test_cases(gnm_np: gnm_numpy.GNM):
 
 
 def get_joints_with_identity_thresholds(gnm_np: gnm_numpy.GNM):
+  del gnm_np
   return 1e-3
 
 
@@ -382,23 +387,27 @@ class GNMNumpyTest(parameterized.TestCase):
   )
   def test_single_atlas_uvs(self, version: str, variant: str):
     """Tests shapes of single-atlas UVs match canonical UVs."""
+    if variant not in self.gnms[version]:
+      self.skipTest(f'variant {variant} not supported in {version}.')
+    gnm_np = self.gnms[version][variant]
+
 
     self.skipTest(
         'Skipping until unified GNM model files attributes are implemented.'
     )
 
     with self.subTest('quad_uvs'):
-      single_atlas_quad_uvs = gnome_face.single_atlas_quad_uvs
+      single_atlas_quad_uvs = gnm_np.single_atlas_quad_uvs
       self.assertIsNotNone(single_atlas_quad_uvs)
       self.assertEqual(
-          gnome_face.quad_uvs.shape,
+          gnm_np.quad_uvs.shape,
           single_atlas_quad_uvs.shape,
       )
     with self.subTest('triangle_uvs'):
-      single_atlas_triangle_uvs = gnome_face.single_atlas_triangle_uvs
+      single_atlas_triangle_uvs = gnm_np.single_atlas_triangle_uvs
       self.assertIsNotNone(single_atlas_triangle_uvs)
       self.assertEqual(
-          gnome_face.triangle_uvs.shape,
+          gnm_np.triangle_uvs.shape,
           single_atlas_triangle_uvs.shape,
       )
 
@@ -489,7 +498,7 @@ class GNMNumpyTest(parameterized.TestCase):
     np.testing.assert_allclose(vertices, mesh.vertices, atol=1e-4)
 
     # The OBJ should contain faces (i.e. quads or triangles).
-    with open(obj_path, 'r') as f:
+    with open(obj_path, 'r', encoding='utf-8') as f:
       self.assertTrue(any(l.startswith('f') for l in f.readlines()))
 
   @parameterized.product(
@@ -537,7 +546,10 @@ class GNMNumpyTest(parameterized.TestCase):
       ),
   )
   def test_mirror_indices(self, version: str, variant: str):
-    """Checks we have one mirror index for each vertex (see mirror_indices_test)."""
+    """Checks we have one mirror index for each vertex.
+
+    See mirror_indices_test.
+    """
     if variant not in self.gnms[version]:
       self.skipTest(f'variant {variant} not supported in {version}.')
     gnm = self.gnms[version][variant]

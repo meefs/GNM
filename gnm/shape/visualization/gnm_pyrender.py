@@ -24,7 +24,7 @@ import tqdm
 import trimesh
 
 os.environ['PYOPENGL_PLATFORM'] = 'osmesa'
-import pyrender
+import pyrender  # pylint: disable=wrong-import-position
 
 # Light direction for shading, in camera-space.
 
@@ -42,6 +42,7 @@ class ProjectionMatrixCamera(pyrender.Camera):
   def get_projection_matrix(
       self, width: int | None = None, height: int | None = None
   ) -> np.ndarray:
+    del width, height
     return self._projection_matrix
 
   def set_projection_matrix(self, projection_matrix: np.ndarray):
@@ -256,7 +257,7 @@ def render(
 def _custom_fragment_file(fragment_shader: str) -> str:
   """Returns a custom fragment shader file with modified diffuse lighting."""
   filepath = pyrender.shader_program.get_shader_path(fragment_shader)
-  with open(filepath, 'r') as f:
+  with open(filepath, 'r', encoding='utf-8') as f:
     mesh_frag_shader = f.readlines()
 
   # Replace line containing float nl = clamp(...)
@@ -286,6 +287,7 @@ class CustomShaderCache(pyrender.shader_program.ShaderProgramCache):
     self.original_cache = original_cache
     self.shader_program = None
 
+  # pylint: disable=keyword-arg-before-vararg
   def get_program(
       self,
       vertex_shader: str,

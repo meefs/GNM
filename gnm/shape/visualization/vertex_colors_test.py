@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Tests for vertex colors visualization."""
+
 from absl.testing import absltest
 from absl.testing import parameterized
 from gnm.shape import gnm_numpy
@@ -50,8 +52,9 @@ class VertexColorsTest(parameterized.TestCase):
   def test_get_vertex_colors(self, version, variant):
     """Tests we can get per-vertex colors."""
     if variant not in self.models[version]:
+      variant_name = variant.value if hasattr(variant, 'value') else variant
       self.skipTest(
-          f'variant {variant.value if hasattr(variant, "value") else variant}'
+          f'variant {variant_name}'
           f' not supported in {version}.'
       )
     gnm_np = self.models[version][variant]
@@ -66,8 +69,9 @@ class VertexColorsTest(parameterized.TestCase):
   )
   def test_gets_inner_head_colors(self, version, variant):
     if variant not in self.models[version]:
+      variant_name = variant.value if hasattr(variant, 'value') else variant
       self.skipTest(
-          f'variant {variant.value if hasattr(variant, "value") else variant}'
+          f'variant {variant_name}'
           f' not supported in {version}.'
       )
     gnm_np = self.models[version][variant]

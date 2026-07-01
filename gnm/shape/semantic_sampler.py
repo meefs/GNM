@@ -41,7 +41,8 @@ from etils import epath
 import numpy as np
 import tensorflow as tf
 
-_DATA_DIR = epath.resource_path(__package__) / 'data'  # pytype: disable=wrong-arg-types
+_pkg = __package__ or 'gnm.shape'
+_DATA_DIR = epath.resource_path(_pkg) / 'data'
 _EXPRESSION_DECODER_PATH = (
     _DATA_DIR / 'semantic_sampler' / 'expression_decoder_model.h5'
 )

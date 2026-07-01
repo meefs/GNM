@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+"""Tests for gnm_base."""
+
 from __future__ import annotations
 
 from collections.abc import Mapping
@@ -41,6 +44,7 @@ class DummyGNM(gnm_base.GNMBase):
       cls,
       data_dict: Mapping[str, Any],
   ) -> DummyGNM:
+    del data_dict
     return cls(
         version=gnm_specs.GNMVersion.V0_0,
         variant=gnm_specs.GNMVariant.EXPERIMENTAL,

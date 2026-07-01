@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Tests for GNM utility functions."""
+
+# pylint: disable=protected-access
+
 from absl.testing import absltest
 from absl.testing import parameterized
 from gnm.shape import gnm_numpy

@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Tests for GNM pyrender visualization."""
+
+# pylint: disable=protected-access
+
 import os
 from absl.testing import absltest
 from absl.testing import parameterized

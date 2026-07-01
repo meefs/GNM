@@ -182,7 +182,7 @@ class GNM(gnm_base.GNMBase, torch.nn.Module):
       model_data: Mapping[str, Any],
   ) -> GNM:
     """Creates a GNM instance from a model data."""
-    instance = cls.__new__(cls)
+    instance = super().__new__(cls)
     super(GNM, instance).__init__()
 
     # Set the data fields.
@@ -613,11 +613,13 @@ def _rotation_matrices(axis_angles: torch.Tensor) -> torch.Tensor:
   Returns:
     3x3 rotation matrices, (N, 3, 3).
   """
+  # pylint: disable=not-callable
   axis_angles = torch.where(
       torch.linalg.norm(axis_angles, dim=-1, keepdims=True) <= _EPSILON,
       axis_angles + _EPSILON,
       axis_angles,
   )
+  # pylint: enable=not-callable
   angle = torch.sqrt(torch.sum(torch.square(axis_angles), dim=-1, keepdim=True))
   axis = axis_angles / (angle + _EPSILON)
 

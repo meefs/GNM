@@ -26,7 +26,8 @@ from gnm.shape.data.versions import gnm_catalog
 from gnm.shape.data.versions import gnm_specs
 import numpy as np
 
-_MODELS_VERSIONS_DIR = epath.resource_path(f'{__package__}.data.versions')  # pytype: disable=wrong-arg-types
+_pkg = __package__ or 'gnm.shape'
+_MODELS_VERSIONS_DIR = epath.resource_path(f'{_pkg}.data.versions')
 _VARIANT_TO_MODEL_FILE_NAME_MAP = gnm_catalog.VARIANT_TO_MODEL_FILE_NAME_MAP
 
 
@@ -51,9 +52,8 @@ def _get_model_path_from_version_and_variant(
     variant: gnm_specs.GNMVariant,
 ) -> epath.Path:
   """Returns the GNM model runfiles path for given variant and version."""
-  version_dir_name = (
-      f'v{_get_newest_minor_for_major(version).value.replace(".", "_")}'
-  )
+  version_value = _get_newest_minor_for_major(version).value.replace('.', '_')
+  version_dir_name = f'v{version_value}'
   model_file_name = f'{_VARIANT_TO_MODEL_FILE_NAME_MAP[variant]}.npz'
   return _MODELS_VERSIONS_DIR / version_dir_name / model_file_name
 
@@ -141,11 +141,13 @@ def _standardize_gnm_data_types(data: dict[str, Any]) -> dict[str, Any]:
   try:
     data['version'] = gnm_specs.GNMVersion(str(data['version']))
   except ValueError as e:
-    raise ValueError(f'Unknown GNM version: {data["version"]}') from e
+    version_val = data['version']
+    raise ValueError(f'Unknown GNM version: {version_val}') from e
   try:
     data['variant'] = gnm_specs.GNMVariant(str(data['variant']))
   except ValueError as e:
-    raise ValueError(f'Unknown GNM variant: {data["variant"]}') from e
+    variant_val = data['variant']
+    raise ValueError(f'Unknown GNM variant: {variant_val}') from e
   for key in (
       'identity_names',
       'joint_names',

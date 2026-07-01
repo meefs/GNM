@@ -31,7 +31,8 @@ FloatArray = npt.NDArray[np.floating]
 
 ColorOrImage = npt.NDArray[np.uint8] | FloatArray | Sequence[float] | float
 
-_TEXTURES_DIR = epath.resource_path(__package__).parent / 'data' / 'textures'  # pytype: disable=wrong-arg-types
+_pkg = __package__ or 'gnm.shape.visualization'
+_TEXTURES_DIR = epath.resource_path(_pkg).parent / 'data' / 'textures'
 _EDGEFLOW_TEXTURE_BY_BODY_PART = immutabledict.immutabledict({
     gnm_numpy.GNMBodyPart.HEAD: str(_TEXTURES_DIR / 'edgeflow_bw_4k.png'),
 })

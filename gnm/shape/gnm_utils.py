@@ -196,8 +196,9 @@ def convert_coefficients(
         f'Dimension mismatch: {coefficients.shape[-1]} vs {from_dim}.'
     )
 
-  # Get the index mapping from the target to source.
-  to_inds, from_inds = _get_corresponding_inds(basis_type, to_gnm, from_gnm)
+  to_inds, from_inds = _get_corresponding_inds(
+      basis_type, from_gnm=to_gnm, to_gnm=from_gnm
+  )
 
   # Convert.
   converted = np.zeros(batch_shape + (to_dim,), dtype=coefficients.dtype)
@@ -426,7 +427,10 @@ def regions_to_expression(
 def regions_to_joint_rotations(
     regions: Mapping[str, np.ndarray], gnm: gnm_numpy.GNM
 ) -> np.ndarray:
-  """Combines joint rotations to single rotations array ([A1, ..., An], J, 3])."""
+  """Combines joint rotations to single rotations array.
+
+  Returns array of shape ([A1, ..., An], J, 3]).
+  """
   validate_gnm(gnm)
   joint_names: list[str] = get_gnm_attribute(gnm, 'joint_names')
   if not regions:

@@ -146,7 +146,9 @@ class GNMMeshViewer:
         const facesVal = new Uint32Array(data.faces);
         const colorsVal = new Float32Array(data.colors);
 
-        geometry.addAttribute('position', new THREE.BufferAttribute(verticesVal, 3));
+        geometry.addAttribute(
+            'position', new THREE.BufferAttribute(verticesVal, 3)
+        );
         geometry.setIndex(new THREE.BufferAttribute(facesVal, 1));
         geometry.addAttribute('color', new THREE.BufferAttribute(colorsVal, 3));
         geometry.computeVertexNormals();

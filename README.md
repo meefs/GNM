@@ -1,5 +1,10 @@
 # GNM: Generative aNthropometric Model
 
+[![CI (Linux)](https://github.com/google/gnm/actions/workflows/ci-linux.yml/badge.svg)](https://github.com/google/gnm/actions/workflows/ci-linux.yml)
+[![CI (macOS)](https://github.com/google/gnm/actions/workflows/ci-macos.yml/badge.svg)](https://github.com/google/gnm/actions/workflows/ci-macos.yml)
+[![CI (Windows)](https://github.com/google/gnm/actions/workflows/ci-windows.yml/badge.svg)](https://github.com/google/gnm/actions/workflows/ci-windows.yml)
+[![Linting Check](https://github.com/google/gnm/actions/workflows/lint.yml/badge.svg)](https://github.com/google/gnm/actions/workflows/lint.yml)
+
 **GNM** is a state-of-the-art parametric 3D statistical model of the human
 head, learned from a large dataset of 3D scans. It provides fine-grained control
 over facial identity, expressions, and head pose. This repository contains the

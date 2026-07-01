@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Tests for render_gnm."""
+
+# pylint: disable=protected-access
+
 import os
 from unittest import mock
 
@@ -463,7 +467,10 @@ class RenderGNMTest(parameterized.TestCase):
     )
 
     eye_indices = gnm_np.vertex_group_indices('eyeball_interior')
-    eye_image_points = render_gnm.project_points_for_gnm(  # pytype: disable=module-attr
+    proj_fn = (
+        render_gnm.project_points_for_gnm  # pytype: disable=module-attr
+    )
+    eye_image_points = proj_fn(
         points_world=vertices[eye_indices],
         vertices=vertices,
         gnm_np=gnm_np,
@@ -666,6 +673,7 @@ class RenderGNMBatchTest(parameterized.TestCase):
 
 
 class TestGetBatchDim(parameterized.TestCase):
+  """Tests for _get_batch_dim helper."""
 
   def test_get_batch_dim(self):
     a, b, c = 1, 2, 3
@@ -726,7 +734,10 @@ class TestProjectPointsForGNM(parameterized.TestCase):
     image = render_gnm.render_gnm(gnm_np, **self.rendering_kwargs)
 
     # Project face joints under the same camera setup.
-    joints_image = render_gnm.project_points_for_gnm(  # pytype: disable=module-attr
+    proj_fn = (
+        render_gnm.project_points_for_gnm  # pytype: disable=module-attr
+    )
+    joints_image = proj_fn(
         gnm_np=gnm_np,
         points_world=gnm_np.template_joint_positions,
         **self.rendering_kwargs,
@@ -736,7 +747,10 @@ class TestProjectPointsForGNM(parameterized.TestCase):
     points_world = np.array(
         [[0, gnm_np.template_vertex_positions[:, 1].max() + 0.05, 0]]
     )
-    external_point_image = render_gnm.project_points_for_gnm(  # pytype: disable=module-attr
+    proj_fn = (
+        render_gnm.project_points_for_gnm  # pytype: disable=module-attr
+    )
+    external_point_image = proj_fn(
         gnm_np=gnm_np,
         points_world=points_world,
         **self.rendering_kwargs,
@@ -779,7 +793,10 @@ class TestProjectPointsForGNM(parameterized.TestCase):
     )
 
     # Project face joints under the same camera setup.
-    joints_image = render_gnm.project_points_for_gnm(  # pytype: disable=module-attr
+    proj_fn = (
+        render_gnm.project_points_for_gnm  # pytype: disable=module-attr
+    )
+    joints_image = proj_fn(
         gnm_np=gnm_np,
         points_world=gnm_np.template_joint_positions,
         world_to_camera=world_to_camera,
@@ -812,6 +829,7 @@ class TestProjectPointsForGNM(parameterized.TestCase):
 
 
 class TestGetLookAtWorldToCamera(parameterized.TestCase):
+  """Tests for get_look_at_world_to_camera."""
 
   gnms: dict[str, gnm_numpy.GNM]
 
@@ -917,6 +935,7 @@ class TestGetLookAtWorldToCamera(parameterized.TestCase):
 
 
 class TestGetFillFactorCameraToImage(parameterized.TestCase):
+  """Tests for get_fill_factor_camera_to_image."""
 
   gnms: dict[str, gnm_numpy.GNM]
 

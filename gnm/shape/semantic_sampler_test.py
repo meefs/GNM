@@ -14,6 +14,8 @@
 
 """Tests for G-Nome identity and expression sampler."""
 
+# pylint: disable=protected-access
+
 from absl.testing import absltest
 from gnm.shape import semantic_sampler
 import numpy as np

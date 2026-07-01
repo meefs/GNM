@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import io
-from typing import Any
+"""Tests for gnm_data_loader."""
+
 from unittest import mock
 
 from absl.testing import absltest
@@ -22,7 +22,6 @@ from etils import epath
 from gnm.shape import gnm_data_loader
 from gnm.shape.data.versions import gnm_catalog
 from gnm.shape.data.versions import gnm_specs
-import numpy as np
 
 _MAINTAINED_MAJOR_GNM_VERSIONS = gnm_catalog.MAINTAINED_MAJOR_VERSIONS
 _MAJOR_VERSION_TO_VARIANTS_MAP = gnm_catalog.MAJOR_VERSION_TO_VARIANTS_MAP
