@@ -25,7 +25,7 @@ dependencies:
   - pylint
   - pytorch
   - tensorflow
-  - opencv
   - pip:
       # Not available on conda-forge.
       - tensorflow-graphics
+      - opencv-python-headless
