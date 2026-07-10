@@ -61,7 +61,9 @@ def transform_points(transform: np.ndarray, points: np.ndarray) -> np.ndarray:
 
 
 def get_pose_correctives_test_cases(gnm_np: gnm_numpy.GNM):
-  rotations = np.arange(gnm_np.num_joints * 3).reshape(gnm_np.num_joints, 3)
+  rotations = np.arange(gnm_np.num_joints * 3, dtype=np.float32).reshape(
+      gnm_np.num_joints, 3
+  )
   no_correctives = np.zeros([gnm_np.num_vertices, 3])
 
   rotation_matrices = _Rotation.from_rotvec(rotations).as_matrix()
@@ -162,7 +164,7 @@ class GNMNumpyTest(parameterized.TestCase):
       self.skipTest(f'variant {variant} not supported in {version}.')
 
     gnm_np = self.gnms[version][variant]
-    translation = np.array([1, 2, 3])
+    translation = np.array([1, 2, 3], dtype=np.float32)
     kwargs = self._get_default_kwargs(gnm_np)
     desired = gnm_np(**kwargs) + translation
     actual = gnm_np(**(kwargs | {'translation': translation}))
