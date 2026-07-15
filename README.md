@@ -31,8 +31,14 @@ Here we list all the available GNM packages:
 
 ## Citation
 If you use any part of the GNM Ecosystem in your work, please consider citing
-the corresponding package. Relevant bibtex entries can be found in the
-individual packages.
+the corresponding package. Relevant bibtex entries are listed below as well as
+within the individual packages.
+
+**GNM Head**
+
+```bash
+coming soon
+```
 
 ## Contributing
 We'd love to accept your patches and contributions to this project! See

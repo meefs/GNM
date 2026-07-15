@@ -257,7 +257,10 @@ Please see [formal_definition](assets/readme/gnm_head_formal_definition.pdf) for
 the formal definition of the GNM head model.
 
 ## Citation
-Coming Soon.
+
+```bash
+coming soon
+```
 
 ## Contributing
 We'd love to accept your patches and contributions to this project! See
